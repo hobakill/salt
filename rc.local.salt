@@ -1,0 +1,49 @@
+#!/bin/bash
+
+# Written by Nicholas W Hobart - 2014 - See LICENSE file for fair-use.
+#  Version 1.0.3
+#--Specical thanks to Jeffrey G Thomas for the inspiration.
+
+##The idea of this basic script is to check to see if EPEL && Salt Minion are installed on the cloned machine. This is being done in rc.local for no other reason than I'm not sure of a more logical place to put it. Some issues I'd like to work out or the future are:
+
+## 1 - find a way to get rid of hard-coding things like $TEMPLATEMAC, $FILE, etc.... 
+## 2 - figure out how to check for EPEL so it doesn't continually try to install if the other checks fail. Possibly another [-f $EPEL ] where $EPEL = /etc/yum.repo.d/something....
+## 3- clean up the script in general 
+
+#Version History:
+# 1.0 - initial release
+# 1.0.1 - remove the quotes around centos6-5
+# 1.0.2 - modified TEMPLATEMAC and more approirate checkfile name 
+# 1.0.3 - wiping out MAC info and HOSTNAME
+
+MAC=`cat /sys/class/net/eth0/address` #this will print the MAC of the machine being booted
+TEMPLATEMAC="00:00:00:00:00:00" #fill this in wth the current MAC address of your base template machine. 
+FILE="/root/.minioncheck"
+HOSTNAME=`hostname -s`
+
+if [ "$HOSTNAME" = 'change-me' ] # you need to change this to the shortname version of your hostname
+  then
+    echo "This is the template - can't install salt minion on this computer"
+
+elif [ -f "$FILE" ]
+  then
+    echo "$FILE exists proving SaltMinion is on here already. Nothing to see"
+
+
+elif [ "$MAC" != "$TEMPLATEMAC" ]
+  then
+    echo "this is not the template - we need to do work"
+      sleep 5 #adding this in to try to wait out the vmware customization reboot
+
+      yum install -y http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm #EPEL should be in the existing template
+      yum install -y salt-minion  #installs salt-minion from EPEL
+      chkconfig salt-minion on
+      printf "schedule:\n" >> /etc/salt/minion
+      printf "  highstate:\n" >> /etc/salt/minion
+      printf "    function: state.highstate\n" >> /etc/salt/minion
+      printf "    minutes: 15\n" >> /etc/salt/minion
+
+      service salt-minion start
+      touch /root/.minioncheck #eventually will have to figure out how to make this not try to install on each boot. with this file's existance we can make an if statement to not do the installation of the minion. 
+
+fi
