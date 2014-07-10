@@ -14,6 +14,7 @@ Please rename this to "rc.local" or copy and paste into your existing /etc/rc.lo
 In my rather wordy and over-commented script file please remember to change a few things to make this work in your environment:
 
 1 - Change the MAC address for your template
+
 2 - Change the HOSTNAME for your template
 
 This script is known-good for CentOS 6.5 x86_64 and VCenter 5.1
