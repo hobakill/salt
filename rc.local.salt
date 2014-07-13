@@ -1,36 +1,31 @@
 #!/bin/bash
 
 # Written by Nicholas W Hobart - 2014 - See LICENSE file for fair-use.
-#  Version 1.0.3
+#  Version 1.0.4 (12 July 2014)
 #--Specical thanks to Jeffrey G Thomas for the inspiration.
-
-##The idea of this basic script is to check to see if EPEL && Salt Minion are installed on the cloned machine. This is being done in rc.local for no other reason than I'm not sure of a more logical place to put it. Some issues I'd like to work out or the future are:
-
-## 1 - find a way to get rid of hard-coding things like $TEMPLATEMAC, $FILE, etc.... 
-## 2 - figure out how to check for EPEL so it doesn't continually try to install if the other checks fail. Possibly another [-f $EPEL ] where $EPEL = /etc/yum.repo.d/something....
-## 3- clean up the script in general 
 
 #Version History:
 # 1.0 - initial release
 # 1.0.1 - remove the quotes around centos6-5
 # 1.0.2 - modified TEMPLATEMAC and more approirate checkfile name 
 # 1.0.3 - wiping out MAC info and HOSTNAME
+# 1.0.4 - cleaning up [[]] and MAC alias - getting rid of excessive commenting
 
-MAC=`cat /sys/class/net/eth0/address` #this will print the MAC of the machine being booted
-TEMPLATEMAC="00:00:00:00:00:00" #fill this in wth the current MAC address of your base template machine. 
+MAC=$(</sys/class/net/eth0/address) #this will print the MAC of the machine being booted
+TEMPLATEMAC="08:00:27:fb:f2:f7" #fill this in wth the current MAC address of your base template machine. 
 FILE="/root/.minioncheck"
 HOSTNAME=`hostname -s`
 
-if [ "$HOSTNAME" = 'change-me' ] # you need to change this to the shortname version of your hostname
+if [[ "$HOSTNAME" = 'master' ]] # you need to change this to the shortname version of your hostname
   then
     echo "This is the template - can't install salt minion on this computer"
 
-elif [ -f "$FILE" ]
+elif [[ -f "$FILE" ]]
   then
     echo "$FILE exists proving SaltMinion is on here already. Nothing to see"
 
 
-elif [ "$MAC" != "$TEMPLATEMAC" ]
+elif [[ "$MAC" != "$TEMPLATEMAC" ]] 
   then
     echo "this is not the template - we need to do work"
       sleep 5 #adding this in to try to wait out the vmware customization reboot
