@@ -19,3 +19,10 @@ In my rather wordy and over-commented script file please remember to change a fe
 
 This script is known-good for CentOS 6.5 x86_64 and VCenter 5.1
 
+#Version History:
+# 1.0 - initial release
+# 1.0.1 - remove the quotes around centos6-5
+# 1.0.2 - modified TEMPLATEMAC and more approirate checkfile name 
+# 1.0.3 - wiping out MAC info and HOSTNAME
+# 1.0.4 - cleaning up [[]] and MAC alias - getting rid of excessive commenting
+

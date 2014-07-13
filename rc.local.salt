@@ -4,13 +4,6 @@
 #  Version 1.0.4 (12 July 2014)
 #--Specical thanks to Jeffrey G Thomas for the inspiration.
 
-#Version History:
-# 1.0 - initial release
-# 1.0.1 - remove the quotes around centos6-5
-# 1.0.2 - modified TEMPLATEMAC and more approirate checkfile name 
-# 1.0.3 - wiping out MAC info and HOSTNAME
-# 1.0.4 - cleaning up [[]] and MAC alias - getting rid of excessive commenting
-
 MAC=$(</sys/class/net/eth0/address) #this will print the MAC of the machine being booted
 TEMPLATEMAC="08:00:27:fb:f2:f7" #fill this in wth the current MAC address of your base template machine. 
 FILE="/root/.minioncheck"
