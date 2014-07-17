@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # Written by Nicholas W Hobart - 2014 - See LICENSE file for fair-use.
-#  Version 1.0.4 (12 July 2014)
-#--Specical thanks to Jeffrey G Thomas for the inspiration.
+# Version 1.0.4 (12 July 2014)
+# Specical thanks to Jeffrey G Thomas for the inspiration.
 
 MAC=$(</sys/class/net/eth0/address) #this will print the MAC of the machine being booted
 TEMPLATEMAC="08:00:27:fb:f2:f7" #fill this in wth the current MAC address of your base template machine. 
