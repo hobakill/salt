@@ -29,7 +29,7 @@ elif [[ "$MAC" != "$TEMPLATEMAC" ]]
       printf "schedule:\n" >> /etc/salt/minion
       printf "  highstate:\n" >> /etc/salt/minion
       printf "    function: state.highstate\n" >> /etc/salt/minion
-      printf "    minutes: 15\n" >> /etc/salt/minion
+      printf "    minutes: 60\n" >> /etc/salt/minion
 
       service salt-minion start
       touch /root/.minioncheck #eventually will have to figure out how to make this not try to install on each boot. with this file's existance we can make an if statement to not do the installation of the minion. 
