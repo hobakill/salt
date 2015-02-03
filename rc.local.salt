@@ -5,11 +5,11 @@
 # Specical thanks to Jeffrey G Thomas for the inspiration.
 
 MAC=$(</sys/class/net/eth0/address) #this will print the MAC of the machine being booted
-TEMPLATEMAC="08:00:27:fb:f2:f7" #fill this in wth the current MAC address of your base template machine. 
+TEMPLATEMAC="08:00:27:z5:3b:03" #fill this in wth the current MAC address of your base template machine. 
 FILE="/root/.minioncheck"
 HOSTNAME=`hostname -s`
 
-if [[ "$HOSTNAME" = 'master' ]] # you need to change this to the shortname version of your hostname
+if [[ "$HOSTNAME" = 'fixme' ]] # you need to change this to the shortname version of your hostname
   then
     echo "This is the template - can't install salt minion on this computer"
 
